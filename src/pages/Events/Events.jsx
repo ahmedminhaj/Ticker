@@ -4,7 +4,7 @@ import styles from './Events.module.css';
 
 const Events = () => {
   return (
-    <div className={styles.page}>
+    <div className={`${styles.page} animateFadeUp`}>
 
       {/* ── Header ── */}
       <div className={styles.header}>
