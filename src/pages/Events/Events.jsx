@@ -1,4 +1,4 @@
-import EventListItem from './components/EventListItem';
+import EventListItem from '../../components/Events/EventListItem';
 import { EVENTS } from '../../assets/data/events';
 import styles from './Events.module.css';
 

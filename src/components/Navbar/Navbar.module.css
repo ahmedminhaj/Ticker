@@ -130,3 +130,86 @@
     display: block;
   }
 }
+
+/* ── Auth actions ── */
+.navbarActions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.authLink {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 700;
+  color: #484b55;
+  transition: color 0.2s;
+  padding: 0;
+}
+
+.authLink:hover {
+  color: var(--primary);
+}
+
+.authBtn {
+  font-size: 14px !important;
+  padding: 8px 18px !important;
+}
+
+/* ── Avatar / user ── */
+.userMenu {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.avatar {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--primary);
+  color: #fff;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.logoutBtn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 700;
+  color: #999;
+  transition: color 0.2s;
+  padding: 0;
+}
+
+.logoutBtn:hover { color: var(--primary); }
+
+/* ── Drawer auth row ── */
+.drawerAuthRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 0 4px;
+  margin-top: 4px;
+  border-top: 1px solid rgba(0,0,0,0.05);
+}
+
+.drawerUsername {
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-primary);
+  flex: 1;
+}
+

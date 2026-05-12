@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import logo from '../../assets/icons/ticker-logo.svg';
+import AuthModal from '../../components/Auth/AuthModal';
 import styles from './Navbar.module.css';
 
 const NAV_LINKS = [
@@ -12,6 +13,12 @@ const NAV_LINKS = [
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
+  const [authModal, setAuthModal] = useState(null); // 'login' | 'register' | null
+  const [user, setUser] = useState(null);
+
+  const handleAuth = (displayName) => setUser(displayName);
+  const handleLogout = () => setUser(null);
+  const openAuth = (mode) => { setOpen(false); setAuthModal(mode); };
 
   return (
     <>
@@ -27,7 +34,7 @@ const Navbar = () => {
                 to={to}
                 end
                 className={({ isActive }) =>
-                  `${styles.navbarLink}${isActive ? ` ${styles["navbarLink--active"]}` : ''}`
+                  `${styles.navbarLink}${isActive ? ` ${styles['navbarLink--active']}` : ''}`
                 }
               >
                 {label}
@@ -36,14 +43,26 @@ const Navbar = () => {
           ))}
         </ul>
 
-        <Link to="/events" className={`btn btnPrimary ${styles.navbarDrawerLink}`}>
-          Get a Ticket
-        </Link>
+        <div className={styles.navbarActions}>
+          {user ? (
+            <div className={styles.userMenu}>
+              <div className={styles.avatar} title={user}>{user[0].toUpperCase()}</div>
+              <button className={styles.logoutBtn} onClick={handleLogout}>Log out</button>
+            </div>
+          ) : (
+            <>
+              <button className={styles.authLink} onClick={() => setAuthModal('login')}>Log in</button>
+              <button className={`btn btnPrimary ${styles.authBtn}`} onClick={() => setAuthModal('register')}>
+                Sign up
+              </button>
+            </>
+          )}
+        </div>
 
         <button
           className={styles.navbarToggle}
           aria-label="Toggle menu"
-          onClick={() => setOpen(o => !o)}
+          onClick={() => setOpen((o) => !o)}
         >
           <span className={styles.navbarToggleBar} />
           <span className={styles.navbarToggleBar} />
@@ -66,18 +85,32 @@ const Navbar = () => {
               {label}
             </Link>
           ))}
-          <Link
-            to="/events"
-            className={`btn btnPrimary ${styles.navbarDrawerLink}`}
-            onClick={() => setOpen(false)}
-            style={{ alignSelf: 'flex-start', marginTop: 12 }}
-          >
-            Get a Ticket
-          </Link>
+          <div className={styles.drawerAuthRow}>
+            {user ? (
+              <>
+                <div className={styles.avatar}>{user[0].toUpperCase()}</div>
+                <span className={styles.drawerUsername}>{user}</span>
+                <button className={styles.logoutBtn} onClick={handleLogout}>Log out</button>
+              </>
+            ) : (
+              <>
+                <button className={styles.authLink} onClick={() => openAuth('login')}>Log in</button>
+                <button className="btn btnPrimary" onClick={() => openAuth('register')}>Sign up</button>
+              </>
+            )}
+          </div>
         </div>
+      )}
+
+      {authModal && (
+        <AuthModal
+          initialMode={authModal}
+          onClose={() => setAuthModal(null)}
+          onAuth={handleAuth}
+        />
       )}
     </>
   );
-}
+};
 
 export default Navbar;
